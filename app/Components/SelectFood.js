@@ -3,7 +3,7 @@ import AudioRecorder from "./AudioRecorder";
 
 export default function SelectFood({ setCurrentPage, audio, setAudio }) {
   return (
-    <div className="flex w-full flex-col gap-4 border border-dashed border-neutral-400 rounded-3xl px-4 py-10 bg-white/60">
+    <div className="flex w-full flex-col gap-4 border border-dashed border-neutral-400 rounded-3xl bg-white/60 h-[calc(100vh-128px)] overflow-y-auto">
       <h1 className="text-3xl self-center border-b p-4">Restaurant Menu</h1>
       <div className="flex w-full h-[80vh] relative">
         <Image src="/menu_1.jpg" fill={true} alt="restaurant menu" />
