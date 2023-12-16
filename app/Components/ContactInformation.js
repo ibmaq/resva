@@ -17,6 +17,8 @@ export default function ContactInformation({ setCurrentPage, audio }) {
     currentLocalDate.toISOString().slice(11, 16)
   );
 
+  const [isSubmissionSuccess, setIsSubmissionSuccess] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -73,6 +75,22 @@ export default function ContactInformation({ setCurrentPage, audio }) {
 
         // Handle success, e.g., show a success message or redirect the user
         console.log("Email sent successfully!");
+        setIsSubmissionSuccess(true);
+
+        // Reset form data after 1000ms (1 second)
+        setTimeout(() => {
+          setIsSubmissionSuccess(false);
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phoneNumber: "",
+            numberOfSeats: "",
+            bookingDate: bookingDate,
+            bookingTime: bookingTime,
+          });
+          setCurrentPage(1);
+        }, 1000);
       } catch (error) {
         // Handle error, e.g., show an error message to the user
         console.error("Error sending email:", error);
@@ -278,10 +296,11 @@ export default function ContactInformation({ setCurrentPage, audio }) {
           <button
             type="submit"
             onClick={(e) => handleSubmit(e)}
-            // disabled={!isFormValid()}
-            className="block w-full rounded-md bg-pink-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600 cursor-pointer"
+            className={`block w-full rounded-md ${
+              isSubmissionSuccess ? "bg-fuchsia-600" : "bg-pink-600"
+            } px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600 cursor-pointer`}
           >
-            Submit
+            {isSubmissionSuccess ? "Submission successful!" : "Submit"}
           </button>
         </div>
       </form>
