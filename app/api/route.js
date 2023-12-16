@@ -17,7 +17,7 @@ export async function POST(request, response) {
   });
   const mailData = {
     from: "muhammadibrahim.alphasquad@gmail.com",
-    to: "m.ibbi99@gmail.com",
+    to: "abeerf.31@gmail.com",
     subject: `Reservation ${reservationId} - For ${data.firstName} ${data.lastName}`,
     text: `
       First Name: ${data.firstName}
