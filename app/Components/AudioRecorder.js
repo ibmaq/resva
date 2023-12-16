@@ -2,13 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 const mimeType = "audio/webm";
-const AudioRecorder = () => {
+export default function AudioRecorder({ audio, setAudio }) {
   const [permission, setPermission] = useState(false);
   const mediaRecorder = useRef(null);
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [stream, setStream] = useState(null);
   const [audioChunks, setAudioChunks] = useState([]);
-  const [audio, setAudio] = useState(null);
 
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
@@ -124,5 +123,4 @@ const AudioRecorder = () => {
       </main>
     </div>
   );
-};
-export default AudioRecorder;
+}

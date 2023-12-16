@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function ContactInformation({ setCurrentPage }) {
+export default function ContactInformation({ setCurrentPage, audio }) {
   const currentDate = new Date();
   const currentLocalDate = new Date(
     currentDate.getTime() - currentDate.getTimezoneOffset() * 60000
@@ -53,24 +53,30 @@ export default function ContactInformation({ setCurrentPage }) {
     );
   };
 
-  const handleSubmit = (e) => {
+  const fetchBlobData = async (blobUrl) => {
+    const response = await fetch(blobUrl);
+    const blobData = await response.blob();
+    return blobData;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormValid()) {
-      // Handle form submission
-      fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }).then((res) => {
-        console.log("Response received");
-        if (res.status === 200) {
-          console.log("Response succeeded!");
-          // setSubmitted(true);
-        }
-      });
+      try {
+        await fetch("/api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        // Handle success, e.g., show a success message or redirect the user
+        console.log("Email sent successfully!");
+      } catch (error) {
+        // Handle error, e.g., show an error message to the user
+        console.error("Error sending email:", error);
+      }
     } else {
       // Set error state for invalid fields
       const errors = { ...formErrors };

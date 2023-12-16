@@ -8,6 +8,7 @@ import Image from "next/image";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [audio, setAudio] = useState(null);
 
   return (
     <main className="bg-pink-100 min-h-screen max-h-full relative">
@@ -19,9 +20,13 @@ export default function Home() {
         {currentPage === 1 ? (
           <SelectRestaurant setCurrentPage={setCurrentPage} />
         ) : currentPage === 2 ? (
-          <SelectFood setCurrentPage={setCurrentPage} />
+          <SelectFood
+            setCurrentPage={setCurrentPage}
+            audio={audio}
+            setAudio={setAudio}
+          />
         ) : currentPage === 3 ? (
-          <ContactInformation setCurrentPage={setCurrentPage} />
+          <ContactInformation setCurrentPage={setCurrentPage} audio={audio} />
         ) : (
           <h1>Thank you for your order!</h1>
         )}
